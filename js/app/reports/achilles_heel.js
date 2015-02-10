@@ -37,7 +37,7 @@
 										visible: true
 									}
 								],
-								pageLength: 15,
+								pageLength: localStorage.getItem("Achilles.defaultRows"),
 								lengthChange: false,
 								deferRender: true,
 								destroy: true

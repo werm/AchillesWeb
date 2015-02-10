@@ -222,7 +222,7 @@
 										className: 'numeric'
 									}
 								],
-								pageLength: 5,
+								pageLength: localStorage.getItem("Achilles.defaultRows"),
 								lengthChange: false,
 								deferRender: true,
 								destroy: true

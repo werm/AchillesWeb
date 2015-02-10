@@ -1,4 +1,7 @@
 (function () {
+
+	window.Settings = localStorage.getItem("Achilles");
+
 	curl([
 		"jquery",
 		"d3",
@@ -582,6 +585,12 @@
 					report = 'death';
 				});
 
+				this.get('#/app/settings', function (context) {
+					$('.report').hide();
+					$('#settingsPanel').show();
+					report = 'settings';
+				});
+
 			});
 
 			$(function () {
@@ -598,6 +607,45 @@
 					}
 					viewModel.datasource(viewModel.datasources[0]);
 					app.run('#/' + viewModel.datasource().folder + '/dashboard');
+				});
+
+				window.Settings = {};
+
+				if(localStorage.getItem("Achilles.defaultRows")){
+					window.Settings = {
+						defaultRows: localStorage.getItem('Achilles.defaultRows')
+					};
+				} else {
+					loadSettings();
+				}
+
+				// GET DEFAULT SETTINGS
+				function loadSettings(){
+					$.ajax({
+						type: "GET",
+						url: 'settings.json',
+					})
+					.done(function(data){
+						localStorage.setItem('Achilles.defaultRows',data.defaultRows);
+					});
+				}
+
+				$(document).on('keydown', '.settingsControl', function(e){
+					if($(e.which) === 13){
+						e.preventDefault();
+						$('#commitSettings').trigger('click');
+					}
+				})
+
+				$('#commitSettings').on('click', function(e){
+					e.preventDefault();
+					$('.settingsControl').each(function(){
+						if($(this).val()){
+							var settingKey = $(this).attr('name');
+							var settingVal = $(this).val();
+							localStorage.setItem('Achilles.' + settingKey, settingVal);
+						}
+					})
 				});
 
 			});
