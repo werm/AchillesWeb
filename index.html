@@ -81,10 +81,21 @@
 							<li onclick="updateReport('death');">Death</li>
 						</ul>
 					</li>
-					<li onclick="updateReport('settings');">
-						<a href="#/app/settings">
-							<i class="glyphicon glyphicon-cog"></i>
-						</a>
+					<li class="dropdown" id="menuLogin">
+					  <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin" role="button" aria-expanded="false">
+              	<i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu">
+            	<form>
+            		<div class="form-group">
+					  	    <label for="defaultRows">Default Table Rows</label>
+					  	    <input type="number" id="defaultRows" class="form-control settingsControl" placeholder="Default Rows">
+					  	  </div>
+								<div class="form-group">
+									<button id="commitSettings" class="btn btn-default" type="button">Update</button>
+								</div>
+	            </form>
+            </div>
 					</li>
 				</ul>
 			</div>
@@ -100,12 +111,9 @@
 	  <div class="panel-body settingsControls">
 
 	  	  <div class="form-group">
-	  	    <label for="Settings.defaultRows">Default Table Rows to Show</label>
-	  	    <input type="number" name="defaultRows" id="settings.defaultRows" class="form-control settingsControl" placeholder="Default Rows">
+
 	  	  </div>
-				<div class="form-group">
-	  	  	<button id="commitSettings" class="btn btn-default" type="button">Update</button>
-	  	  </div>
+
 
 	  </div>
 	</div>

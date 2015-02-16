@@ -236,7 +236,7 @@
 										className: 'numeric'
 									}
 								],
-								pageLength: localStorage.getItem("Achilles.defaultRows"),
+								pageLength: window.Settings.defaultRows,
 								lengthChange: false,
 								deferRender: true,
 								destroy: true

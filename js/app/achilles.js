@@ -1,6 +1,14 @@
 (function () {
 
-	window.Settings = localStorage.getItem("Achilles");
+	var getStore = function(item){
+		return JSON.parse(localStorage.getItem(item));
+	}
+
+	var setStore = function(key, item){
+		localStorage.setItem(key, JSON.stringify(item));
+	}
+
+	window.Settings = getStore('settings');
 
 	curl([
 		"jquery",
@@ -609,15 +617,7 @@
 					app.run('#/' + viewModel.datasource().folder + '/dashboard');
 				});
 
-				window.Settings = {};
-
-				if(localStorage.getItem("Achilles.defaultRows")){
-					window.Settings = {
-						defaultRows: localStorage.getItem('Achilles.defaultRows')
-					};
-				} else {
-					loadSettings();
-				}
+				loadSettings();
 
 				// GET DEFAULT SETTINGS
 				function loadSettings(){
@@ -626,7 +626,10 @@
 						url: 'settings.json',
 					})
 					.done(function(data){
-						localStorage.setItem('Achilles.defaultRows',data.defaultRows);
+						if(!getStore('settings')){
+							var settings = { 'defaultRows': data.defaultRows };
+							setStore('settings', settings);
+						}
 					});
 				}
 
@@ -643,9 +646,12 @@
 						if($(this).val()){
 							var settingKey = $(this).attr('name');
 							var settingVal = $(this).val();
-							localStorage.setItem('Achilles.' + settingKey, settingVal);
+							var rows = { 'defaultRows': settingVal };
+							setStore('settings', rows);
 						}
 					})
+					$('.dropdown.open .dropdown-toggle').dropdown('toggle');
+					window.location.reload()
 				});
 
 			});

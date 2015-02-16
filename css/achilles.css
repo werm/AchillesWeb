@@ -392,3 +392,8 @@ table.dataTable tbody tr.odd.selected {
 	max-width: 800px;
 	z-index: 1040;
 }
+
+.dropdown-menu form {
+	padding: 10px;
+	min-width: 200px;
+}
